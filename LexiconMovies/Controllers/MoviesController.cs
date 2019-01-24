@@ -19,11 +19,17 @@ namespace LexiconMovies.Controllers
         }
 
         // GET: Movies
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string query)
         {
-            DbSet<Movie> movies = _context.Movie;
-            Task<List<Movie>> modelTask = movies.ToListAsync();
-            List<Movie> model = await modelTask;
+            IQueryable<Movie> movies = _context.Movie;
+            if (!string.IsNullOrEmpty(query))
+            {
+                movies = movies.Where(m => m.Title.Contains(query));
+            }
+            ViewBag.Query = query;
+
+            var model = await movies.ToListAsync();
+
 
             return View(model);
         }
@@ -81,7 +87,16 @@ namespace LexiconMovies.Controllers
             {
                 return NotFound();
             }
-            return View(movie);
+            var model = new MovieEditModel {
+                Id = movie.Id,
+                Title = movie.Title,
+                Genre = movie.Genre,
+                ReleaseDate = movie.ReleaseDate,
+                Price = movie.Price,
+                Genres = await _context.Movie.Select(m => m.Genre).Distinct().ToListAsync()               
+            };
+
+            return View(model);
         }
 
         // POST: Movies/Edit/5
