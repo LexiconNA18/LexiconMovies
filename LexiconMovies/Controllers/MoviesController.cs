@@ -22,6 +22,7 @@ namespace LexiconMovies.Controllers
         public async Task<IActionResult> Index(string query)
         {
             IQueryable<Movie> movies = _context.Movie;
+            
             if (!string.IsNullOrEmpty(query))
             {
                 movies = movies.Where(m => m.Title.Contains(query));
@@ -29,8 +30,7 @@ namespace LexiconMovies.Controllers
             ViewBag.Query = query;
 
             var model = await movies.ToListAsync();
-
-
+            
             return View(model);
         }
 

@@ -1,17 +1,18 @@
-﻿@model float
-
+﻿@model LexiconMovies.ViewComponents.StarsViewModel
 @{ 
-    var doubleRating = (int)Math.Round(Model * 2);
-    var stars = doubleRating / 2;
-    var halfStars = doubleRating % 2;
+    var commons = "https://upload.wikimedia.org/wikipedia/commons/";
+    var star = commons + "e/e5/Full_Star_Yellow.svg";
+    var half = commons + "d/d6/Half_Star_Yellow.svg";
 }
 
-<span>
-    @for (int i = 0; i < stars; i++)
+
+<span class="stars">
+    @for (int i = 0; i < Model.Stars; i++)
     {
-        <span>Star</span>
+        <img src="@star">
     }
-    @if (halfStars == 1) {
-        <span>Halfstar</span>
+    @if (Model.HalfStar)
+    {
+        <img src="@half">
     }
 </span>

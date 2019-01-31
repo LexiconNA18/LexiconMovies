@@ -18,9 +18,21 @@ namespace LexiconMovies.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync(int movieId) {
             var movie = await db.Movie.FindAsync(movieId);
-            var rating = movie.Rating;
 
-            return View(rating);
+            var doubleRating = (int)Math.Round(movie.Rating * 2);
+            var model = new StarsViewModel
+            {
+                Stars = doubleRating / 2,
+                HalfStar = doubleRating % 2 == 1
+            };
+
+            return View(model);
         }
+    }
+
+    public class StarsViewModel
+    {
+        public int Stars { get; set; }
+        public bool HalfStar { get; set; }
     }
 }

@@ -12,6 +12,7 @@
     <label for="query" class="control-label">Search</label> &nbsp;
     <input id="query" name="query" class="form-control" size="20" value="@ViewBag.Query" />
 </form>
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -30,12 +31,11 @@
         @foreach (var movie in Model)
         {
         <tr>
-            <td> @Html.DisplayFor(modelItem => movie.Title)</td>
-            <td> @Html.DisplayFor(modelItem => movie.ReleaseDate)</td>
-            <td> @Html.DisplayFor(modelItem => movie.Genre)</td>
-            <td> @Html.DisplayFor(modelItem => movie.Price)</td>
+            <td>@Html.DisplayFor(modelItem => movie.Title)</td>
+            <td>@Html.DisplayFor(modelItem => movie.ReleaseDate)</td>
+            <td>@Html.DisplayFor(modelItem => movie.Genre)</td>
+            <td>@Html.DisplayFor(modelItem => movie.Price)</td>
             <td>
-                @Html.DisplayFor(modelItem => movie.Rating)
                 @*await Component.InvokeAsync("Stars", new { movieId = movie.Id })*@
                 <vc:stars movie-id="@movie.Id" />
             </td>
