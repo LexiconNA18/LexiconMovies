@@ -17,5 +17,7 @@ namespace LexiconMovies.Models
 
         public string Genre { get; set; }
         public decimal Price { get; set; }
+
+        public float Rating { get; set; }
     }
 }

@@ -1,0 +1,17 @@
+﻿@model float
+
+@{ 
+    var doubleRating = (int)Math.Round(Model * 2);
+    var stars = doubleRating / 2;
+    var halfStars = doubleRating % 2;
+}
+
+<span>
+    @for (int i = 0; i < stars; i++)
+    {
+        <span>Star</span>
+    }
+    @if (halfStars == 1) {
+        <span>Halfstar</span>
+    }
+</span>
