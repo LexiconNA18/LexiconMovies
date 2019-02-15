@@ -1,20 +1,24 @@
 ﻿@model IEnumerable<LexiconMovies.Models.Movie>
-@addTagHelper *, LexiconMovies
-
-
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Movies</h1>
 
 <form method="get" class="form-inline float-right">
     <label for="query" class="control-label">Search</label> &nbsp;
     <input id="query" name="query" class="form-control" size="20" value="@ViewBag.Query" />
 </form>
 
-<p>
-    <a asp-action="Create">Create New</a>
+<p id="destination" style="border: 1px solid red">
+    <a asp-action="Create"
+       data-ajax="true"
+       data-ajax-method="GET"
+       data-toggle="tooltip"
+       data-placement="top"
+       title="Add new movie"
+       data-ajax-mode="replace"
+       data-ajax-update="#destination">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -30,20 +34,20 @@
     <tbody>
         @foreach (var movie in Model)
         {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => movie.Title)</td>
-            <td>@Html.DisplayFor(modelItem => movie.ReleaseDate)</td>
-            <td>@Html.DisplayFor(modelItem => movie.Genre)</td>
-            <td>@Html.DisplayFor(modelItem => movie.Price)</td>
-            <td>
-                @*await Component.InvokeAsync("Stars", new { movieId = movie.Id })*@
-                <vc:stars movie-id="@movie.Id" />
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@movie.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@movie.Id">Delete</a>
-            </td>
-        </tr>
+            <tr>
+                <td>@Html.DisplayFor(modelItem => movie.Title)</td>
+                <td>@Html.DisplayFor(modelItem => movie.ReleaseDate)</td>
+                <td>@Html.DisplayFor(modelItem => movie.Genre)</td>
+                <td>@Html.DisplayFor(modelItem => movie.Price)</td>
+                <td>
+                    @*await Component.InvokeAsync("Stars", new { movieId = movie.Id })*@
+                    <vc:stars movie-id="@movie.Id" />
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@movie.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@movie.Id">Delete</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
@@ -69,4 +73,8 @@
 
         </div>
     </div>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

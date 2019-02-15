@@ -55,6 +55,10 @@ namespace LexiconMovies.Controllers
         // GET: Movies/Create
         public IActionResult Create()
         {
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_CreatePartial");
+            }
             return View();
         }
 
@@ -71,6 +75,9 @@ namespace LexiconMovies.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Details), new { movie.Id });
             }
+
+            return Json(movie);
+
             return View(movie);
         }
 

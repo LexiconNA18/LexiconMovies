@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [{
+  "provider": "filesystem",
+  "library": "C:\\Users\\Magister\\.nuget\\packages\\microsoft.jquery.unobtrusive.ajax\\3.2.6\\Content\\Scripts",
+  "destination": "wwwroot/lib/Scripts/"
+}
+]
+}
